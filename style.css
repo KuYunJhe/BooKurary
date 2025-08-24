@@ -455,10 +455,10 @@ button {
         );
 }
 
-.bar_side {
-    /* background-color: #ff0000; */
+/* .bar_side {
+    background-color: #ff0000;
 
-}
+} */
 
 .bar_LEFT {
     justify-self: start;
