@@ -34,7 +34,7 @@ form.addEventListener('submit', function (event) {
 
 
 
-        
+
         // ======== 把 add Book 表單資料，送進資料庫物件 ===============
         newBookCard_Sand_Data_To_myLibrary(formDataObject.add_bookName, formDataObject.add_author, formDataObject.add_numOfPages, formDataObject.add_descript, formDataObject.add_rating, formDataObject.add_progress);
         // =========================================================
@@ -196,7 +196,7 @@ function removeBookCard(removeBtm_event) {
 
             // 3. 動畫結束後，真正移除元素，包含他的監聽器、子元素、子元素的監聽器
             card.remove();
-            console.log(`### removeBookCard -- ID: ${card.id}`)
+            // console.log(`### removeBookCard -- ID: ${card.id}`)
         }, { once: true });
 
 
@@ -210,7 +210,7 @@ function removeBookCard(removeBtm_event) {
         upDateCountBar();
     }
     //################################r檢查用###############################
-    console.log(myLibrary.bookShelf);
+    // console.log(myLibrary.bookShelf);
     // console.log(myLibrary.bookIDList);
     // console.log(myLibrary.bookIDList.length);
     // console.log(`** 資料庫內剩餘book數量 :${myLibrary.getBooksCount()}`);
@@ -239,7 +239,7 @@ const delete_ALL_bookCard_DO = (function delete_ALL_bookCard() {
             card.classList.add('book_card_remove-animation'); // 1. 新增 class 來觸發過渡效果
             card.addEventListener('transitionend', () => { // 2. 監聽過渡結束事件。'transitionend' 事件在任何 CSS 過渡完成後都會觸發
                 card.remove(); // 3. 動畫結束後，真正移除元素，包含他的監聽器、子元素、子元素的監聽器
-                console.log(`### removeBookCard -- ID: ${card.id}`)
+                // console.log(`### removeBookCard -- ID: ${card.id}`)
             }, { once: true });
         });
 
@@ -253,7 +253,7 @@ const delete_ALL_bookCard_DO = (function delete_ALL_bookCard() {
 
 
         //################################r檢查用###############################
-        console.log(myLibrary.bookShelf);
+        // console.log(myLibrary.bookShelf);
         // console.log(myLibrary.bookIDList);
         // console.log(myLibrary.bookIDList.length);
         // console.log(`** 資料庫內剩餘book數量 :${myLibrary.getBooksCount()}`);
