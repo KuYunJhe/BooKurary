@@ -1,0 +1,933 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+button {
+    outline: none;
+
+    & span {
+        user-select: none;
+    }
+}
+
+.main_layout {
+    background-color: aqua;
+    position: relative;
+
+    height: auto;
+    min-height: 100vh;
+
+    background-image:
+        /* 最上層: 放射狀漸層 */
+        radial-gradient(ellipse at 30% 0%, rgba(255, 255, 0, 0.4), rgba(255, 255, 0, 0)),
+        /* 最底層: 線性漸層 */
+        linear-gradient(35deg, #e66465 10%, #9198e5 90%);
+
+    /*--------自訂變數-------------*/
+    /*毛玻璃底色*/
+    --color-glass-background: rgba(255, 255, 255, 0.2);
+    --color-glass-background-btm: rgba(255, 255, 255, 0);
+}
+
+/*==========================底層書架==========================*/
+
+.book_shelf_layout {
+    padding: 6rem 7rem;
+    /* display: none; */
+    /*---------------*/
+
+}
+
+.book_shelf {
+    /*---------------*/
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-auto-rows: 23rem;
+    gap: 3rem;
+}
+
+.book_card {
+    padding: 1rem 2rem 1.5rem;
+    border-radius: 2rem;
+
+
+    /*----毛玻璃---*/
+
+
+
+    background-image:
+        radial-gradient(ellipse at 30% 0%, rgba(255, 230, 0, 0.082), rgba(255, 255, 0, 0)),
+        linear-gradient(35deg, rgba(133, 131, 128, 0.329) 0%, rgba(255, 255, 255, 0.11) 100%);
+
+    /* background-color: rgb(105, 105, 105, 0.26); */
+    /* background-color: rgba(255, 255, 255, 0.199); */
+
+
+    backdrop-filter: blur(50px);
+    /* border: solid rgba(255, 255, 255, 0.3); */
+    border-width: 0.01rem;
+    box-shadow: 0.8rem 0.8rem 1.5rem rgba(0, 0, 0, 0.1);
+    /*----毛玻璃---*/
+
+    /*---------------*/
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3rem 6rem 6rem 1fr;
+
+
+
+    /*--------移除時的動畫效果------*/
+
+    /* 加上 bottom-margin 以確保移除後其他元素能平順地向上移動 */
+    /* margin-left: 100px; */
+
+    /* 設定過渡效果：在 0.5 秒內平滑地改變所有屬性 */
+    transition: all 0.5s ease-out;
+    /* 初始狀態 */
+    opacity: 1;
+    height: auto;
+
+}
+
+.book_card_remove-animation {
+    opacity: 0;
+    transform: translateY(-20px);
+    /* 最終外距變為 0 */
+    /* opacity: 0;
+    height: 0;
+    padding: 0;
+    margin: 0; */
+    background-color: #ee6262;
+}
+
+.book_INFO_item {
+    /*----作者、評分的 標題和內容，縱向間距和橫向偏移----*/
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    justify-content: space-between;
+
+    & h1 {
+        color: aliceblue;
+        font-size: 1.2rem;
+        font-family: "Playfair Display", "Kaisei Decol", "Noto Serif TC", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: italic;
+    }
+}
+
+.book_INFO_item>:nth-child(even) {
+    /* background-color: #73a53d; */
+    margin-left: 2.5rem;
+
+}
+
+.book_name {
+    /*---------------*/
+    grid-column: 1/3;
+    justify-self: center;
+    align-self: start;
+
+    padding: 0;
+    /*---------------*/
+
+    & h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        text-shadow:
+            /* -1px -1px 0 #fff, */
+            /* 白色邊框效果 */
+            0.3rem 0.2rem 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.book_author {
+    /*---------------*/
+    grid-column: 1/3;
+    justify-self: start;
+    /* width: 100%; */
+    /*---------------*/
+
+
+    & .book_author_context {
+        font-family: "Playfair Display", "Kaisei Decol", "Noto Serif TC", serif;
+
+        /*---------------*/
+        font-size: 1.5rem;
+    }
+}
+
+.book_rating {
+    /*---------------*/
+    grid-column: 1/3;
+    justify-self: start;
+    /* width: 100%; */
+    /*---------------*/
+
+
+    & .star_set {
+        /* margin: 1.5rem auto; */
+        /* text-align: center; */
+
+        user-select: none;
+
+        & span {
+            display: inline-block;
+            color: rgba(204, 204, 204, 0.349);
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+
+        & .starOn {
+            display: inline-block;
+            color: yellow;
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+    }
+}
+
+.book_card button {
+    border-radius: 0.7rem;
+
+    /*----毛玻璃---*/
+    background-color: var(--color-glass-background);
+    backdrop-filter: blur(50px);
+    border: solid rgba(255, 255, 255, 0.1);
+    border-width: 1px 3px 3px 1px;
+    box-shadow: 2px 4px 1rem rgba(0, 0, 0, 0.1);
+    /*----毛玻璃---*/
+}
+
+.book_card button span {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
+.progress_btm {
+    /*---------------*/
+    grid-area: -1 / 1 / -2 / 2;
+    justify-self: stretch;
+    align-self: end;
+
+    /* margin-right: 1rem; */
+    /*---------------*/
+
+    padding: 0.5rem 1rem;
+
+    & span {
+        color: aliceblue;
+        font-family: "Philosopher", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+}
+
+.progress_btm:active {
+    /* background-color: rgba(122, 222, 51, 0.2); */
+    border-color: rgba(169, 228, 126, 0.3);
+    border-width: 2px 1px 1px 2px;
+    border-style: inset;
+    outline: none;
+}
+
+.book_remove_mark {
+
+    /*---------------*/
+    grid-area: -1 /2/ -2 /3;
+    justify-self: end;
+    align-self: end;
+    /*---------------*/
+
+    padding: 0.5rem 1.2rem;
+
+    & span {
+        color: #e66465;
+        font-size: 10rem;
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 500,
+            'GRAD' 0,
+            'opsz' 24;
+        /* font-style: italic; */
+
+
+        /*---------------*/
+        /* 讓 icon 成為區塊元素，方便 transform */
+        display: inline-block;
+        /* 將 icon 放大 1.5 倍 */
+        transform: scale(1.3);
+        /* 為了讓圖標和文字對齊，你可能需要微調 */
+        vertical-align: middle;
+    }
+}
+
+.book_remove_mark:active {
+    background-color: rgba(225, 99, 99, 0.2);
+    border-color: rgba(233, 102, 102, 0.1);
+    border-width: 2px 1px 1px 2px;
+    border-style: inset;
+    outline: none;
+
+}
+
+
+
+/*========================== 操作視窗 ==========================*/
+
+
+.flow_layout {
+    top: 0;
+    left: 0;
+    position: fixed;
+
+    height: 100vh;
+    width: 100%;
+
+    backdrop-filter: blur(10px);
+    background-color: rgba(70, 70, 70, 0.7);
+
+
+    display: none;
+}
+
+
+/*---------------頭頂顯示條----------------*/
+.count_bar {
+    /* ------ 調整自身定位 ------ */
+    width: clamp(20rem, 50%, 100rem);
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    /* 將元素往回移動自身的一半 */
+
+
+    /* -------- 自身布局 -------- */
+    padding: 1rem 1rem 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    column-gap: 5rem;
+    row-gap: 2rem;
+
+
+
+    /* ------ 背景樣式設定 ------ */
+    background-color: yellowgreen;
+
+    border-radius: 0 0 1rem 1rem;
+
+
+    /*----毛玻璃---*/
+    background-color: var(--color-glass-background);
+    backdrop-filter: blur(10px);
+    border: solid rgba(255, 255, 255, 0.3);
+    border-width: 0 3px 3px 1px;
+    box-shadow: -2px -4px 1rem rgba(0, 0, 0, 0.1);
+    /*----毛玻璃---*/
+}
+
+.count_bar div {
+
+
+    & h1 {
+        text-align: center;
+        color: aliceblue;
+        font-family: "Kaisei Decol", "Playfair Display", "Noto Serif TC", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 0.7rem;
+    }
+
+    & .count_num {
+        line-height: 2rem;
+        font-size: 1.5rem;
+
+    }
+}
+
+
+/*---------------底下操作條----------------*/
+
+
+.page_footer {
+    /* ------ 調整自身定位 ------ */
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    /* -------- 自身布局 -------- */
+    text-align: center;
+    /*用來置中 add_btm_block
+
+    /* ------ 背景樣式設定 ------ */
+    /* background-color: #e66465; */
+}
+
+.logo {
+    user-select: none;
+}
+
+.logo_left {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+
+
+    /*--------------*/
+    color: rgba(255, 255, 255, 0.6);
+    font-family: "Philosopher", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 3.5rem;
+}
+
+.logo_right {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+
+    /*--------------*/
+    color: rgba(255, 255, 255, 0.6);
+    font-family: "Philosopher", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
+/*--------------*/
+
+.operate_bar {
+    user-select: none;
+
+    width: auto;
+    margin: auto;
+    height: 4.5rem;
+
+
+    /* -------- 自身布局 -------- */
+    display: inline-grid;
+    grid-template-columns: 13rem 2rem 13rem;
+    gap: 3rem;
+    padding: 0.7rem 1.7rem;
+
+    align-items: center;
+    /* ------ 背景樣式設定 ------ */
+    border-radius: 1rem 1rem 0 0;
+
+
+    /*----毛玻璃---*/
+    background-color: var(--color-glass-background);
+    backdrop-filter: blur(10px);
+    border: solid rgba(255, 255, 255, 0.3);
+    border-width: 2px 3px 0 1px;
+    box-shadow: -2px -4px 1rem rgba(0, 0, 0, 0.1);
+    /*----毛玻璃---*/
+
+
+
+    /* 核心技巧：使用 mask 來挖洞 */
+    -webkit-mask-image:
+        radial-gradient(circle at 50% 20%,
+            transparent 0,
+            /* 圓心開始是透明的 */
+            transparent 2.3rem,
+            /* 從半徑 50px 開始，仍然是透明 */
+            black 2.3rem
+            /* 突然變成不透明，這就是洞的邊緣 */
+        );
+}
+
+.bar_side {
+    /* background-color: #ff0000; */
+
+}
+
+.bar_LEFT {
+    justify-self: start;
+    text-align: start;
+    line-height: 1.3rem;
+
+    color: #e0e0e0;
+    font-family: "Philosopher", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1rem;
+}
+
+.bar_RIGHT {
+    display: flex;
+    gap: 0.5rem;
+    justify-self: end;
+
+    &>span {
+
+        display: block;
+        line-height: 1rem;
+        align-self: center;
+        color: #f05f5f;
+        font-family: "Philosopher", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 1rem;
+    }
+
+    & button {
+
+        display: block;
+        padding: 0.5rem 0.5rem;
+        border-radius: 0.7rem;
+        /*----毛玻璃---*/
+        background-color: rgba(255, 0, 0, 0.281);
+        backdrop-filter: blur(50px);
+        border: solid;
+        border-top-color: rgba(255, 255, 255, 0.1);
+        border-right-color: rgba(255, 255, 255, 0.2);
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+        border-left-color: rgba(255, 255, 255, 0.1);
+        border-width: 1px 3px 3px 1px;
+        box-shadow: 2px 4px 1rem rgba(0, 0, 0, 0.1);
+
+        /*----毛玻璃---*/
+        & span {
+            background-color: transparent;
+            color: #ffffff5e;
+            font-size: 1.5rem;
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 500,
+                'GRAD' 0,
+                'opsz' 24;
+            /* font-style: italic; */
+            /*---------------*/
+            /* 讓 icon 成為區塊元素，方便 transform */
+            display: inline-block;
+            /* 將 icon 放大 1.5 倍 */
+            transform: scale(1.3);
+            /* 為了讓圖標和文字對齊，你可能需要微調 */
+            vertical-align: middle;
+        }
+    }
+
+    & button:active {
+        background-color: rgba(197, 0, 0, 0.459);
+        border-top-color: rgba(75, 75, 75, 0.2);
+        border-right-color: rgba(255, 255, 255, 0.3);
+        border-bottom-color: rgba(255, 255, 255, 0.3);
+        border-left-color: rgba(75, 75, 75, 0.2);
+        border-width: 3px 1px 1px 3px;
+        border-style: inset;
+        outline: none;
+    }
+}
+
+.add_btm_block {
+    & button {
+        /* ------ 調整自身定位 ------ */
+        display: block;
+        position: fixed;
+        bottom: 1.58rem;
+        left: 50%;
+        transform: translate(-50%, 0);
+
+        width: 4rem;
+        height: 4rem;
+
+
+        border-radius: 50%;
+
+        /* ------ 背景樣式設定 ------ */
+        /* background-color: #ff0000; */
+
+
+        /*----毛玻璃---*/
+        background-color: var(--color-glass-background);
+        backdrop-filter: blur(10px);
+        border: solid rgba(255, 255, 255, 0.3);
+        border-width: 1px 3px 3px 1px;
+        box-shadow: -4px -4px 1rem rgba(0, 0, 0, 0.1);
+        /*----毛玻璃---*/
+
+        & span {
+            /* 讓 icon 成為區塊元素，方便 transform */
+            display: inline-block;
+            /* 將 icon 放大 1.5 倍 */
+            transform: scale(1.5);
+            /* 為了讓圖標和文字對齊，你可能需要微調 */
+            vertical-align: middle;
+
+
+            /* ------ 樣式設定 ------ */
+            font-weight: 400;
+            color: aliceblue;
+
+            /* 石刻樣式 */
+            /* color: rgba(228, 228, 228, 0.432);
+            filter: blur(0.02rem);
+            text-shadow:
+                -1px -1px 1px rgba(0, 0, 0, 0.2),
+                1px 1px 1px rgba(255, 255, 255, 0.212); */
+            /* 模擬陰影 */
+
+        }
+    }
+
+    & button:active {
+        background-color: rgba(173, 173, 173, 0.479);
+        border: solid rgba(163, 163, 163, 0.37);
+        border-width: 3px 1px 1px 3px;
+        border-style: inset;
+        outline: none;
+
+        & span {
+            color: rgb(255, 223, 45);
+        }
+    }
+}
+
+/*---------------輸入表單----------------*/
+
+.add_book_block {
+
+
+    /* ------ 調整自身定位 ------ */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+
+    /* -------- 自身布局 -------- */
+    padding: 2rem 2rem 1.5rem;
+
+
+
+    /* ------ 背景樣式設定 ------ */
+    background-color: yellowgreen;
+    border-radius: 1rem;
+
+
+
+
+    /*----毛玻璃---*/
+    background-color: var(--color-glass-background);
+    backdrop-filter: blur(10px);
+    border: solid rgba(255, 255, 255, 0.3);
+    border-width: 1px 3px 3px 1px;
+    box-shadow: -4px -4px 1rem rgba(0, 0, 0, 0.1);
+    /*----毛玻璃---*/
+
+
+}
+
+.close_btm {
+    /* ------ 調整自身定位 ------ */
+    display: block;
+    position: absolute;
+    bottom: -4rem;
+    /* right: -3.5rem; */
+
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+
+    /* ------ 背景樣式設定 ------ */
+
+    /*----毛玻璃---*/
+    background-color: var(--color-glass-background);
+    backdrop-filter: blur(10px);
+    border: solid rgba(255, 255, 255, 0.3);
+    border-width: 1px 2px 2px 1px;
+    box-shadow: -4px -4px 1rem rgba(0, 0, 0, 0.1);
+    /*----毛玻璃---*/
+
+    & span {
+        text-align: center;
+
+        /* ------ 樣式設定 ------ */
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: aliceblue;
+    }
+}
+
+.close_btm:active {
+    background-color: rgba(189, 189, 189, 0.3);
+    border: solid rgba(126, 126, 126, 0.2);
+    border-width: 3px 1px 1px 3px;
+    border-style: inset;
+    outline: none;
+}
+
+/*--------------*/
+.form_add_book_form {
+    /* -------- 自身布局 -------- */
+
+    & h1 {
+        text-align: center;
+        color: aliceblue;
+        font-family: "Kaisei Decol", "Playfair Display", "Noto Serif TC", serif;
+        font-optical-sizing: auto;
+        font-size: 2rem;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    & div label {
+        text-align: center;
+    }
+}
+
+.form_items_block {
+
+    padding: 2rem 0rem 0.5rem;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 4rem);
+
+    gap: 0rem;
+
+}
+
+dialog {
+    background-color: transparent;
+    /* 移除底色 */
+    border: none;
+    /* 移除邊框 */
+    padding: 0;
+}
+
+::backdrop {
+    /* background-image: linear-gradient(45deg,
+            magenta,
+            rebeccapurple,
+            dodgerblue,
+            green); */
+
+    background-image: linear-gradient(0deg,
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0.3) 100%);
+    /* opacity: 0.75; */
+    backdrop-filter: blur(10px);
+}
+
+.form_item {
+    /* -------- 自身布局 -------- */
+    display: grid;
+    grid-template-columns: 6rem minmax(15rem, 1fr);
+    grid-template-rows: 2.2rem 1fr;
+    column-gap: 1.5rem;
+    place-content: center;
+
+
+    /*輸入項目標題*/
+    & label {
+        /* text-align: center;
+        align-items: center;
+        justify-self: center; */
+
+        align-self: center;
+        justify-self: end;
+
+        color: aliceblue;
+        font-family: "Kaisei Decol", "Playfair Display", "Noto Serif TC", serif;
+        font-optical-sizing: auto;
+        font-size: 1rem;
+        font-weight: 200;
+        font-style: italic;
+
+    }
+
+    & input,
+    textarea {
+        border: none;
+        border-radius: 1rem;
+        padding: 0em 1rem;
+        outline: none;
+        height: 2rem;
+
+        /*--------------*/
+
+        background-color: rgba(204, 204, 204, 0.349);
+        color: aliceblue;
+        font-family: "Kaisei Decol", "Playfair Display", "Noto Serif TC", serif;
+        font-optical-sizing: auto;
+        font-size: 1rem;
+        font-weight: 200;
+        font-style: normal;
+        line-height: 2rem;
+    }
+
+    & input:focus,
+    textarea:focus {
+        background-color: rgba(245, 245, 245, 0.548);
+    }
+
+    &>span {
+        display: block;
+        grid-area: 2 / 2 / 3 / -1;
+        padding-left: 1rem;
+        line-height: 1rem;
+
+
+
+        /*-------------*/
+        color: rgba(71, 145, 41, 0.877);
+        color: #a12d2d;
+        font-family: "Kaisei Decol", "Playfair Display", "Noto Serif TC", serif;
+        font-optical-sizing: auto;
+        font-size: 0.8rem;
+        font-weight: 100;
+        font-style: normal;
+    }
+
+    &>span::after {
+        content: "";
+        color: #a12d2d;
+    }
+
+    & textarea:not(:focus) {
+        resize: none;
+        height: 2rem;
+        /* max-height: 2rem; */
+    }
+
+    & textarea:focus {
+        resize: none;
+        height: 2rem;
+    }
+
+    & .star_set {
+        align-self: center;
+        justify-self: center;
+        display: flex;
+        gap: 1.2rem;
+
+        user-select: none;
+
+
+        & span {
+            display: inline-block;
+            color: rgba(204, 204, 204, 0.349);
+            font-size: 2rem;
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+
+        & .starOn {
+            display: inline-block;
+            color: yellow;
+            font-size: 2rem;
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+    }
+
+    & .progress_btm {
+        grid-area: 1 / 2 / 2 / -1;
+        align-self: center;
+        justify-self: start;
+
+        outline: none;
+        display: block;
+        width: 55%;
+        padding: 0.5rem 2rem;
+        border-radius: 0.7rem;
+
+        /*----毛玻璃---*/
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(50px);
+        border: solid rgba(255, 255, 255, 0.2);
+        border-width: 1px 3px 3px 1px;
+        box-shadow: 2px 4px 1rem rgba(0, 0, 0, 0.1);
+        /*----毛玻璃---*/
+
+        & span {
+            color: #d8d8d8;
+            font-family: "Philosopher", sans-serif;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(100, 100, 100, 0.308);
+            font-style: normal;
+            font-size: 1rem;
+        }
+    }
+
+    & button:active {
+        background-color: rgba(153, 153, 153, 0.3);
+        border: solid rgba(163, 163, 163, 0.459);
+        border-width: 3px 1px 1px 3px;
+        border-style: inset;
+        outline: none;
+
+        & span {
+            color: rgb(206, 206, 206);
+        }
+    }
+
+
+}
+
+#submit {
+    background-color: #73a53d;
+    display: block;
+    margin: auto;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.7rem;
+    outline: none;
+
+    /*----毛玻璃---*/
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(50px);
+    border: solid rgba(255, 255, 255, 0.2);
+    border-width: 1px 3px 3px 1px;
+    box-shadow: 2px 4px 1rem rgba(0, 0, 0, 0.1);
+    /*----毛玻璃---*/
+
+    & span {
+        color: #e0e0e0;
+        font-family: "Philosopher", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 1.5rem;
+    }
+}
+
+#submit:active {
+    background-color: rgba(153, 153, 153, 0.3);
+    border: solid rgba(163, 163, 163, 0.459);
+    border-width: 3px 1px 1px 3px;
+    border-style: inset;
+    outline: none;
+
+    & span {
+        color: rgb(206, 206, 206);
+    }
+}

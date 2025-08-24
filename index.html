@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zw">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BooKurary</title>
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="Reset_CSS.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Noto+Serif+TC:wght@200..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="main_layout">
+    <div class="book_shelf_layout">
+      <div class="book_shelf" id="book_shelf">
+        <!-- ------------------------ book template -------------------------->
+        <template id="book_card_template">
+          <div class="book_card" id="template_ID">
+            <div class="book_name book_INFO_item">
+              <h1 class="book_name_title"></h1>
+            </div>
+            <div class="book_author book_INFO_item">
+              <h1 class="book_author_title">Author</h1>
+              <h1 class="book_author_context"></h1>
+            </div>
+            <div class="book_rating book_INFO_item">
+              <h1 class="book_rating_title">Rating</h1>
+              <div class="star_set">
+                <span class="material-symbols-outlined star star_1">kid_star</span>
+                <span class="material-symbols-outlined star star_2">kid_star</span>
+                <span class="material-symbols-outlined star star_3">kid_star</span>
+                <span class="material-symbols-outlined star star_4">kid_star</span>
+                <span class="material-symbols-outlined star star_5">kid_star</span>
+              </div>
+            </div>
+
+            <button type="button" class="progress_btm">
+              <span class="progress_btm_span">UNREAD</span>
+            </button>
+
+            <button type="button" class="book_remove_mark">
+              <span class="material-symbols-outlined">
+                delete
+              </span>
+            </button>
+          </div>
+        </template>
+        <!-- ------------------------ book  template-------------------------->
+      </div>
+
+
+
+      <!-- ------------------------ 這是分隔線 -------------------------->
+      <div class="flow_layout">
+      </div>
+      <div class="count_bar">
+        <div class="total count_bar_item">
+          <h1 class="count_bar_item_title">TOTAL</h1>
+          <h1 class="total_num count_num">10</h1>
+        </div>
+        <div class="read count_bar_item">
+          <h1 class="count_bar_item_title">READ</h1>
+          <h1 class="read_num count_num">2</h1>
+        </div>
+        <div class="unread count_bar_item">
+          <h1 class="count_bar_item_title">UNREAD</h1>
+          <h1 class="unread_num count_num">5</dh1v>
+        </div>
+        <div class="reading count_bar_item">
+          <h1 class="count_bar_item_title">READING</h1>
+          <h1 class="reading_num count_num">6</h1>
+        </div>
+      </div>
+
+
+      <dialog>
+        <div class="add_book_block">
+          <button class="close_btm" type="button">
+            <span class="material-symbols-outlined">
+              close
+            </span>
+          </button>
+          <form class="form_add_book_form" id="form_add_book_form" action="" method="post" novalidate>
+            <h1>Put a Book into BooKurary</h1>
+            <div class="form_items_block">
+              <div class="form_item book_name_form_item">
+                <label for="add_book_name">Book Name</label>
+                <input type="text" id="add_book_name" name="add_bookName" required pattern=".{2,}$" minlength="2" />
+                <span class="item_label"></span>
+              </div>
+              <div class="form_item book_author_form_item">
+                <label for="add_book_author">Author</label>
+                <input type="text" id="add_book_author" name="add_author" required pattern=".{2,}$" minlength="2" />
+                <span class="item_label"></span>
+              </div>
+              <div class="form_item book_pages_form_item">
+                <label for="add_book_pages">Pages</label>
+                <input type="number" id="add_book_pages" name="add_numOfPages" required min="2" />
+                <span class="item_label"></span>
+              </div>
+              <div class="form_item book_descript_form_item">
+                <label for="add_book_descript">Descript</label>
+                <textarea rows="2" cols="2" id="add_book_descript" name="add_descript" maxlength="200"></textarea>
+                <span class="item_label"></span>
+              </div>
+              <div class="form_item book_rating_form_item">
+                <label for="add_book_rating">Rating</label>
+                <input type="text" style="display: none" id="add_book_rating" name="add_rating" max="5" min="1"
+                  value="1" />
+                <div class="star_set">
+                  <span class="material-symbols-outlined star star_1">kid_star</span>
+                  <span class="material-symbols-outlined star star_2">kid_star</span>
+                  <span class="material-symbols-outlined star star_3">kid_star</span>
+                  <span class="material-symbols-outlined star star_4">kid_star</span>
+                  <span class="material-symbols-outlined star star_5">kid_star</span>
+                </div>
+              </div>
+
+
+              <div class="form_item Reading_Progress_btm_form_item">
+                <label for="add_reading_progress">Progress</label>
+                <input type="text" style="display: none" id="add_reading_progress" name="add_progress" value="UNREAD"
+                  required />
+                <button type="button" class="progress_btm">
+                  <span class="progress_btm_span">UNREAD</span>
+                </button>
+              </div>
+
+
+            </div>
+            <button type="submit" id="submit"><span>ADD !</span></button>
+          </form>
+        </div>
+      </dialog>
+
+
+      <div class="page_footer">
+        <div class="logo logo_left">BooKurary</div>
+
+
+        <div class="operate_bar">
+          <div class="bar_side bar_LEFT"><span>Let's put your Books into BooKurary</span></div>
+          <div class="bar_side bar_CENTER"></div>
+          <div class="bar_side bar_RIGHT"><span>Delete<br>ALL</span>
+            <button class="remove_all_btm" id="remove_all_btm">
+              <span class="material-symbols-outlined">delete_forever</span>
+            </button>
+          </div>
+        </div>
+
+
+        <div class="add_btm_block">
+          <button class="add_btm">
+            <span class="material-symbols-outlined">
+              add_2
+            </span>
+          </button>
+        </div>
+
+
+
+
+        <div class="logo logo_right">Copyright © Ku YunJhe 2025</div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="module" src="data_build.js" defer></script>
+<script type="module" src="countBarCal.js"></script>
+<script type="module" src="progressBtmCtrl.js"></script>
+<script type="module" src="addBook_&_removeBook.js"></script>
+<script type="module" src="addBookForm_OnOffSwitch.js"></script>
+<script type="module" src="addBookDataValidation.js"></script>
+<script type="module" src="starSetCrlt.js"></script>
+
+</html>
